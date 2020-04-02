@@ -4,6 +4,11 @@ The code has two files:
   - main.py.  The main class that execute the code, reading a model, a file (video or image) or web cam stream, make all the inference steps and send statistics to mqts and media to ffpserver.
   - inference.py. Implement different steps of inference process.
 
+### MPORTANT NOTE. FOR RESUMITTION
+
+The app counter works properly with threshold of 0.1 . It could seen a little low threshold, but in videos there is some people with black clothes and it seem these resolutions with that colour generate a lot of uncertainties about if the object is a person. These effect happens in the tree models tested. 
+
+The drawbacks of these low threshold could be the increase of false positives. For examples, in videos where appear animals, it could be counted as peope.
 
 The code has been tested with four different models. Here is the command to execute it.
 
@@ -18,7 +23,7 @@ python main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m /Users/mmartin/worksp
 
 ### MobileNetSSD FP32
 
-python main.py -i images/prueba.jpg -m /Users/mmartin/workspace/udacity/AI_IoT/nd131-openvino-fundamentals-project-starter-master/models/VGGNet/MobileNetSSD/MobileNetSSD_deploy.xml -l /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension.dylib -d CPU -pt 0.7 |  ffmpeg/ffmpeg -v warning -f rawvideo -pixel_format bgr24 -video_size 768x432 -framerate 24 -i - http://0.0.0.0:3004/fac.ffm
+python main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m /Users/mmartin/workspace/udacity/AI_IoT/nd131-openvino-fundamentals-project-starter-master/models/VGGNet/MobileNetSSD/MobileNetSSD_deploy.xml -l /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension.dylib -d CPU -pt 0.1 |  ffmpeg/ffmpeg -v warning -f rawvideo -pixel_format bgr24 -video_size 768x432 -framerate 24 -i - http://0.0.0.0:3004/fac.ffm
 
 
 ### MobileNetSSD FP16
