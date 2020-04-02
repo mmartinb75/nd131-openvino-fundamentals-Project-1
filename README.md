@@ -4,7 +4,7 @@ The code has two files:
   - main.py.  The main class that execute the code, reading a model, a file (video or image) or web cam stream, make all the inference steps and send statistics to mqts and media to ffpserver.
   - inference.py. Implement different steps of inference process.
 
-### MPORTANT NOTE. FOR RESUMITTION
+### IMPORTANT NOTE. FOR RESUBMITION
 
 The app counter works properly with threshold of 0.1 . It could seen a little low threshold, but in videos there is some people with black clothes and it seem these resolutions with that colour generate a lot of uncertainties about if the object is a person. These effect happens in the tree models tested. 
 
